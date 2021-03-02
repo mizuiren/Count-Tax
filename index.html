@@ -29,44 +29,98 @@
 	</style>
 </head>
 <body>
-<div class="my-table">
-	<div>旧单位月薪：</div>
-	<div><input type="number" name="old"></div>
-	<div>¥（人民币）</div>
-	<div>新单位月薪：</div>
-	<div><input type="number" name="new"></div>
-	<div>¥（人民币）</div>
-	<div>单位更换月份：</div>
-	<div><select name="changemonth" style="width:50px;">
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="6">6</option>
-		<option value="7">7</option>
-		<option value="8">8</option>
-		<option value="9" selected="true">9</option>
-		<option value="10">10</option>
-		<option value="11">11</option>
-		<option value="12">12</option>
-	</select></div>
-	<div>注：新单位上班的第一个月份</div>
-	<div>专项扣除(每月)：</div>
-	<div><input type="number" name="special" value="2500"></div>
-	<div>¥（人民币）</div>
-	<div>五险一金(每月)：</div>
-	<div><input type="number" name="fiveone" value="547"></div>
-	<div>¥（人民币）， 注：默认按最低基数缴纳</div>
-	<div style="font-weight: bold;">最终应补税：</div>
-	<div class="result"></div>
-	<div></div>
-	<div style="grid-column-start: 1;grid-column-end:4;">注：计算最终结果：正数表示需要补扣，负数表示要退税</div>
+	<div style="width:600px;margin: 0 auto;border: 1px solid #c2a547;padding: 5px;background: #3effb7;">
+		<div class="my-table">
+		<div>旧单位月薪：</div>
+		<div><input type="number" name="old"></div>
+		<div>¥（人民币）</div>
+		<div>新单位月薪：</div>
+		<div><input type="number" name="new"></div>
+		<div>¥（人民币）</div>
+		<div>单位更换月份：</div>
+		<div><select name="changemonth" style="width:50px;">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9" selected="true">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+		</select></div>
+		<div>注：新单位上班的第一个月份</div>
+		<div>专项扣除(每月)：</div>
+		<div><input type="number" name="special" value="2500"></div>
+		<div>¥（人民币）</div>
+		<div>五险一金(每月)：</div>
+		<div><input type="number" name="fiveone" value="547"></div>
+		<div>¥（人民币）， 注：默认按最低基数缴纳</div>
+		<div style="font-weight: bold;">最终应补税：</div>
+		<div class="result"></div>
+		<div></div>
+		<div style="grid-column-start: 1;grid-column-end:4;">注：计算最终结果：正数表示需要补扣，负数表示要退税</div>
+	</div>
+	<div style="background: yellow;display: inline-block;padding:5px;border:1px solid #ccc;">
+		居民个人综合所得适用个人所得税税率表：
+		<table>
+			<tbody>
+				<tr>
+					<td>级数</td>
+					<td>全年应纳税所得额</td>
+					<td>税率（％）</td>
+					<td>速算扣除数</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>不超过36000元的部分</td>
+					<td>3</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>超过36000元至144000元的部分</td>
+					<td>10</td>
+					<td>2520</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>超过144000元至300000元的部分</td>
+					<td>20</td>
+					<td>16920</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>超过300000元至420000元的部分</td>
+					<td>25</td>
+					<td>31920</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>超过420000元至660000元的部分</td>
+					<td>30</td>
+					<td>52920</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>超过660000元至960000元的部分</td>
+					<td>35</td>
+					<td>85920</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>超过960000元的部分</td>
+					<td>45</td>
+					<td>181920</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
-<div style="background: yellow;display: inline-block;padding:5px;border:1px solid #ccc;">
-	居民个人综合所得适用个人所得税税率表：
-<table><tbody><tr><td>级数</td><td>全年应纳税所得额</td><td>税率（％）</td><td>速算扣除数</td></tr><tr><td>1</td><td>不超过36000元的部分</td><td>3</td><td>0</td></tr><tr><td>2</td><td>超过36000元至144000元的部分</td><td>10</td><td>2520</td></tr><tr><td>3</td><td>超过144000元至300000元的部分</td><td>20</td><td>16920</td></tr><tr><td>4</td><td>超过300000元至420000元的部分</td><td>25</td><td>31920</td></tr><tr><td>5</td><td>超过420000元至660000元的部分</td><td>30</td><td>52920</td></tr><tr><td>6</td><td>超过660000元至960000元的部分</td><td>35</td><td>85920</td></tr><tr><td>7</td><td>超过960000元的部分</td><td>45</td><td>181920</td></tr></tbody></table>
-</div>
+
 <script type="text/javascript">
 	function getInput(name) {
 		return document.querySelector('input[name="'+name+'"]');
