@@ -113,7 +113,6 @@
 			
 			for(i = range[0]; i <= range[1]; i++) {
 				lastMonthRemain = 0;
-				console.log(i);
 				if(shouldAllTax <= 36000) {
 					thisMonthRate = 0.03;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
@@ -146,13 +145,13 @@
 			console.log(payTax)
 			return payTax;
 		}
-		//var oldPayTax = _count([1,12], newVal);
-		var oldPayTax = _count([1,changemonthVal - 1], oldVal);
+		var newPayTax = _count([1,12], newVal);
+		/*var oldPayTax = _count([1,changemonthVal - 1], oldVal);
 		var newPayTax = _count([changemonthVal,12],newVal);
 		
 		var tax = _count([1,12], newVal) - (oldPayTax + newPayTax);
 
-		document.querySelector('.result').innerHTML = tax.toFixed(2);
+		document.querySelector('.result').innerHTML = tax.toFixed(2);*/
 	}
 </script>
 </body>
