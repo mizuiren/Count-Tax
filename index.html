@@ -167,7 +167,6 @@
 			
 			for(i = range[0]; i <= range[1]; i++) {
 				lastMonthRemain = 0;
-				console.log(i);
 				if(shouldAllTax <= 36000) {
 					thisMonthRate = 0.03;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
