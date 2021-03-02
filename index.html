@@ -162,19 +162,19 @@
 				return 0;
 			}
 			var payTax = 0, shouldAllTax = shouldTax;
-			var thisMonthTax = 0, lastMonthRemain, thisMonthRate = 0.03, lastMonthRate = 0.03;
+			var thisMonthTax = 0, lastMonthRemain = 0, thisMonthRate = 0.03, lastMonthRate = 0.03;
 			var taxRate = [];
 			
 			for(i = range[0]; i <= range[1]; i++) {
-				lastMonthRemain = 0;
+				//lastMonthRemain = 0;
 				if(shouldAllTax <= 36000) {
 					thisMonthRate = 0.03;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					lastMonthRemain = 36000 - shouldAllTax;
 				} else if(shouldAllTax > 36000 && shouldAllTax <= 144000) {
 					thisMonthRate = 0.10;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
 					lastMonthRemain = 36000 - shouldAllTax;
+					console.log(shouldAllTax, lastMonthRemain)
 				} else if(shouldAllTax > 144000 && shouldAllTax <= 300000) {
 					thisMonthRate = 0.20;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
@@ -182,21 +182,28 @@
 				} else if(shouldAllTax > 300000 && shouldAllTax <= 420000) {
 					thisMonthRate = 0.25;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+					lastMonthRemain = 300000 - shouldAllTax;
 				} else if(shouldAllTax > 420000 && shouldAllTax <= 660000) {
 					thisMonthRate = 0.30;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+					lastMonthRemain = 420000 - shouldAllTax;
 				} else if(shouldAllTax > 660000 && shouldAllTax <= 960000) {
 					thisMonthRate = 0.35;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+					lastMonthRemain = 660000 - shouldAllTax;
 				} else if(shouldAllTax > 960000) {
 					thisMonthRate = 0.45;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+					lastMonthRemain = 960000 - shouldAllTax;
 				}
+				/*if(lastMonthRemain > 0) {
+					console.log(lastMonthRemain);
+				}*/
 				payTax += thisMonthTax;
 				shouldAllTax += shouldTax;
 				lastMonthRate = thisMonthRate;
 			}
-			console.log(payTax)
+			//console.log(payTax)
 			return payTax;
 		}
 		//var oldPayTax = _count([1,12], newVal);
