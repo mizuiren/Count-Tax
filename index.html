@@ -29,44 +29,98 @@
 	</style>
 </head>
 <body>
-<div class="my-table">
-	<div>旧单位月薪：</div>
-	<div><input type="number" name="old"></div>
-	<div>¥（人民币）</div>
-	<div>新单位月薪：</div>
-	<div><input type="number" name="new"></div>
-	<div>¥（人民币）</div>
-	<div>单位更换月份：</div>
-	<div><select name="changemonth" style="width:50px;">
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="6">6</option>
-		<option value="7">7</option>
-		<option value="8">8</option>
-		<option value="9" selected="true">9</option>
-		<option value="10">10</option>
-		<option value="11">11</option>
-		<option value="12">12</option>
-	</select></div>
-	<div>注：新单位上班的第一个月份</div>
-	<div>专项扣除(每月)：</div>
-	<div><input type="number" name="special" value="2500"></div>
-	<div>¥（人民币）</div>
-	<div>五险一金(每月)：</div>
-	<div><input type="number" name="fiveone" value="547"></div>
-	<div>¥（人民币）， 注：默认按最低基数缴纳</div>
-	<div style="font-weight: bold;">最终应补税：</div>
-	<div class="result"></div>
-	<div></div>
-	<div style="grid-column-start: 1;grid-column-end:4;">注：计算最终结果：正数表示需要补扣，负数表示要退税</div>
+	<div style="width:600px;margin: 0 auto;border: 1px solid #c2a547;padding: 5px;background: #3effb7;">
+		<div class="my-table">
+		<div>旧单位月薪：</div>
+		<div><input type="number" name="old"></div>
+		<div>¥（人民币）</div>
+		<div>新单位月薪：</div>
+		<div><input type="number" name="new"></div>
+		<div>¥（人民币）</div>
+		<div>单位更换月份：</div>
+		<div><select name="changemonth" style="width:50px;">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9" selected="true">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+		</select></div>
+		<div>注：新单位上班的第一个月份</div>
+		<div>专项扣除(每月)：</div>
+		<div><input type="number" name="special" value="2500"></div>
+		<div>¥（人民币）</div>
+		<div>五险一金(每月)：</div>
+		<div><input type="number" name="fiveone" value="547"></div>
+		<div>¥（人民币）， 注：默认按最低基数缴纳</div>
+		<div style="font-weight: bold;">最终应补税：</div>
+		<div class="result"></div>
+		<div></div>
+		<div style="grid-column-start: 1;grid-column-end:4;">注：计算最终结果：正数表示需要补扣，负数表示要退税</div>
+	</div>
+	<div style="background: yellow;display: inline-block;padding:5px;border:1px solid #ccc;">
+		居民个人综合所得适用个人所得税税率表：
+		<table>
+			<tbody>
+				<tr>
+					<td>级数</td>
+					<td>全年应纳税所得额</td>
+					<td>税率（％）</td>
+					<td>速算扣除数</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>不超过36000元的部分</td>
+					<td>3</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>超过36000元至144000元的部分</td>
+					<td>10</td>
+					<td>2520</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>超过144000元至300000元的部分</td>
+					<td>20</td>
+					<td>16920</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>超过300000元至420000元的部分</td>
+					<td>25</td>
+					<td>31920</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>超过420000元至660000元的部分</td>
+					<td>30</td>
+					<td>52920</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>超过660000元至960000元的部分</td>
+					<td>35</td>
+					<td>85920</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>超过960000元的部分</td>
+					<td>45</td>
+					<td>181920</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
-<div style="background: yellow;display: inline-block;padding:5px;border:1px solid #ccc;">
-	居民个人综合所得适用个人所得税税率表：
-<table><tbody><tr><td>级数</td><td>全年应纳税所得额</td><td>税率（％）</td><td>速算扣除数</td></tr><tr><td>1</td><td>不超过36000元的部分</td><td>3</td><td>0</td></tr><tr><td>2</td><td>超过36000元至144000元的部分</td><td>10</td><td>2520</td></tr><tr><td>3</td><td>超过144000元至300000元的部分</td><td>20</td><td>16920</td></tr><tr><td>4</td><td>超过300000元至420000元的部分</td><td>25</td><td>31920</td></tr><tr><td>5</td><td>超过420000元至660000元的部分</td><td>30</td><td>52920</td></tr><tr><td>6</td><td>超过660000元至960000元的部分</td><td>35</td><td>85920</td></tr><tr><td>7</td><td>超过960000元的部分</td><td>45</td><td>181920</td></tr></tbody></table>
-</div>
+
 <script type="text/javascript">
 	function getInput(name) {
 		return document.querySelector('input[name="'+name+'"]');
@@ -100,58 +154,89 @@
 			} else {
 				thisMonthTax = shouldTax * thisMonthRate;
 			}
+			thisMonthTax = thisMonthTax > 0 ? thisMonthTax : 0;
+			console.log(thisMonthTax);
 			return thisMonthTax;
 		}
 		function _count(range, income) {
-			var shouldTax = income - (specialVal + fiveoneVal + 5000);
-			if(shouldTax < 0) {
-				return 0;
-			}
-			var payTax = 0, shouldAllTax = shouldTax;
-			var thisMonthTax = 0, lastMonthRemain, thisMonthRate = 0.03, lastMonthRate = 0.03;
+			var shouldTax = income - (specialVal + fiveoneVal + 5000);//本月需纳税的金额
+			var payTax = 0, //累计的支付税款
+				shouldAllTax = shouldTax;//累计的需纳税的金额
+			var thisMonthTax = 0, //这个月需缴纳的税款
+				lastMonthRemain = 0, //上个月的结余
+				thisMonthRate = 0.03, //这个月的税率
+				lastMonthRate = 0.03;//上个月的税率
 			var taxRate = [];
 			
 			for(i = range[0]; i <= range[1]; i++) {
-				lastMonthRemain = 0;
 				if(shouldAllTax <= 36000) {
 					thisMonthRate = 0.03;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					lastMonthRemain = 36000 - shouldAllTax;
+					if(shouldAllTax + shouldTax > 36000) {
+						lastMonthRemain = 36000 - shouldAllTax;
+					} else {
+						lastMonthRemain = 0;
+					}
 				} else if(shouldAllTax > 36000 && shouldAllTax <= 144000) {
 					thisMonthRate = 0.10;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					lastMonthRemain = 36000 - shouldAllTax;
+					if(shouldTax + shouldAllTax > 144000) {
+						lastMonthRemain = 144000 - shouldAllTax;
+					} else {
+						lastMonthRemain = 0;
+					}
 				} else if(shouldAllTax > 144000 && shouldAllTax <= 300000) {
 					thisMonthRate = 0.20;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					lastMonthRemain = 144000 - shouldAllTax;
+					if(shouldTax + shouldAllTax > 300000) {
+						lastMonthRemain = 300000 - shouldAllTax;
+					} else {
+						lastMonthRemain = 0;
+					}
 				} else if(shouldAllTax > 300000 && shouldAllTax <= 420000) {
 					thisMonthRate = 0.25;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+					if(shouldTax + shouldAllTax > 420000) {
+						lastMonthRemain = 420000 - shouldAllTax;
+					} else {
+						lastMonthRemain = 0;
+					}
 				} else if(shouldAllTax > 420000 && shouldAllTax <= 660000) {
 					thisMonthRate = 0.30;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+					if(shouldTax + shouldAllTax > 660000) {
+						lastMonthRemain = 660000 - shouldAllTax;
+					} else {
+						lastMonthRemain = 0;
+					}
 				} else if(shouldAllTax > 660000 && shouldAllTax <= 960000) {
 					thisMonthRate = 0.35;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+					if(shouldTax + shouldAllTax > 960000) {
+						lastMonthRemain = 960000 - shouldAllTax;
+					} else {
+						lastMonthRemain = 0;
+					}
 				} else if(shouldAllTax > 960000) {
 					thisMonthRate = 0.45;
 					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
 				}
+				
 				payTax += thisMonthTax;
 				shouldAllTax += shouldTax;
 				lastMonthRate = thisMonthRate;
 			}
-			console.log(payTax)
+			console.log('需纳税工资总数：' + shouldAllTax);
+			console.log('纳税总金额：' + payTax);
 			return payTax;
 		}
-		var newPayTax = _count([1,12], newVal);
-		/*var oldPayTax = _count([1,changemonthVal - 1], oldVal);
+		//var newPayTax = _count([1,8], newVal);
+		var oldPayTax = _count([1,changemonthVal - 1], oldVal);
 		var newPayTax = _count([changemonthVal,12],newVal);
 		
 		var tax = _count([1,12], newVal) - (oldPayTax + newPayTax);
 
-		document.querySelector('.result').innerHTML = tax.toFixed(2);*/
+		document.querySelector('.result').innerHTML = tax.toFixed(2);
 	}
 </script>
 </body>
