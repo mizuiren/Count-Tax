@@ -59,7 +59,7 @@
 </head>
 <body>
 	<div id="container">
-		<div class="buttons">
+		<div class="buttons" style="text-align: center;">
 			<button id="countAll" class="button active">年度汇缴</button>
 			<button id="countMonth" class="button">月度缴税计算</button>
 		</div>
@@ -112,7 +112,7 @@
 		<div>五险一金(每月)：</div>
 		<div><input type="number" name="fiveone" value="547"></div>
 		<div>¥（人民币）， 注：默认按最低基数缴纳</div>
-		<div style="font-weight: bold;">最终应交税：</div>
+		<div style="font-weight: bold;" class="result-tip">需要补缴：</div>
 		<div class="result"></div>
 		<div></div>
 		<div style="grid-column-start: 1;grid-column-end:4;" class="for-all-year">注：计算最终结果：正数表示需要补扣，负数表示要退税</div>
@@ -226,12 +226,15 @@
 					}
 					addClass(this, 'active');
 					var table = document.querySelector('.my-table');
+					var resultTip = document.querySelector('.result-tip');
 					if(this.id === 'countAll') {
 						setDisplayByClass('.for-all-year', 'flex');
 						setDisplayByClass('.for-one-month', 'none');
+						resultTip.innerHTML = '需要补缴：';
 					} else {
 						setDisplayByClass('.for-all-year', 'none');
 						setDisplayByClass('.for-one-month', 'flex');
+						resultTip.innerHTML = '应缴纳：';
 					}
 				});
 			}
