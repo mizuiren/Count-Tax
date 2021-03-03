@@ -12,11 +12,11 @@
 			display: flex;
 			padding: 10px 0;
 		}
-		.my-table input {
+		.my-table input,.my-table select {
 			width: 100%;
-		}
-		input {
-			outline: none;
+			height: 25px;
+    		box-sizing: border-box;
+    		outline: none;
 		}
 		table {
 			border-collapse: collapse;
@@ -64,44 +64,48 @@
 			<button id="countMonth" class="button">月度缴税计算</button>
 		</div>
 		<div class="my-table">
-		<div>旧单位月薪：</div>
-		<div><input type="number" name="old"></div>
-		<div>¥（人民币）</div>
-		<div>新单位月薪：</div>
+		<div class="for-all-year">旧单位月薪：</div>
+		<div class="for-all-year"><input type="number" name="old"></div>
+		<div class="for-all-year">¥（人民币）</div>
+		<div>现单位月薪：</div>
 		<div><input type="number" name="new"></div>
 		<div>¥（人民币）</div>
-		<div>单位更换月份：</div>
-		<div><select name="changemonth" style="width:50px;">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9" selected="true">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-		</select></div>
-		<div>注：新单位上班的第一个月份</div>
-		<div style="display:none;">本年度交了多少个月：</div>
-		<div style="display:none;"><select name="paymonth" style="width:50px;">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9" selected="true">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-		</select></div>
-		<div style="display:none;"></div>
+		<div class="for-all-year">单位更换月份：</div>
+		<div class="for-all-year">
+			<select name="changemonth" style="width:50px;">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9" selected="true">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+			</select>
+		</div>
+		<div class="for-all-year">注：新单位上班的第一个月份</div>
+		<div style="display:none;" class="for-one-month">年度缴税的第几个月：</div>
+		<div style="display:none;" class="for-one-month">
+			<select name="paymonth" style="width:50px;">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6" selected="true">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+			</select>
+		</div>
+		<div style="display:none;" class="for-one-month"></div>
 		<div>专项扣除(每月)：</div>
 		<div><input type="number" name="special" value="2500"></div>
 		<div>¥（人民币）</div>
@@ -111,7 +115,7 @@
 		<div style="font-weight: bold;">最终应交税：</div>
 		<div class="result"></div>
 		<div></div>
-		<div style="grid-column-start: 1;grid-column-end:4;">注：计算最终结果：正数表示需要补扣，负数表示要退税</div>
+		<div style="grid-column-start: 1;grid-column-end:4;" class="for-all-year">注：计算最终结果：正数表示需要补扣，负数表示要退税</div>
 	</div>
 	<div style="background: yellow;display: inline-block;padding:5px;border:1px solid #ccc;">
 		居民个人综合所得适用个人所得税税率表：
@@ -171,180 +175,180 @@
 </div>
 
 <script type="text/javascript">
-	init();
+	(function() {
+		init();
 
-	function getInput(name) {
-		return document.querySelector('input[name="'+name+'"]');
-	}
-
-	Object.prototype.removeClass = function removeClass(obj,cls) {  
-	    if (hasClass(obj,cls)) {  
-	        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');  
-	        obj.className = obj.className.replace(reg, ' ');  
-	    }  
-	}
-
-	function hasClass(obj,cls) {  
-	    return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));  
-	}
-	  
-	function addClass(obj,cls) {  
-	    if (!hasClass(obj,cls)) obj.className += " " + cls;  
-	}
-
-	function init() {
-		var allInput = document.querySelectorAll('input[name]');
-		var allSelect = document.querySelectorAll('select[name]');
-		var i;
-		for (i = allInput.length - 1; i >= 0; i--) {
-			allInput[i].addEventListener('input', function() {
-				ouput();
-			});
+		function getInput(name) {
+			return document.querySelector('input[name="'+name+'"]');
 		}
-		for (i = allSelect.length - 1; i >= 0; i--) {
-			allSelect[i].addEventListener('change', function() {
-				ouput();
-			});
+
+		Object.prototype.removeClass = function removeClass(obj,cls) {  
+		    if (hasClass(obj,cls)) {  
+		        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');  
+		        obj.className = obj.className.replace(reg, ' ');  
+		    }  
 		}
-		var btns = document.querySelectorAll('.button');
-		for (i = btns.length - 1; i >= 0; i--) {
-			btns[i].addEventListener('click', function() {
-				var _btns = document.querySelectorAll('.button');
-				for (var j = _btns.length - 1; j >= 0; j--) {
-					removeClass(btns[j], 'active');
-				}
-				addClass(this, 'active');
-				var table = document.querySelector('.my-table');
-				if(this.id === 'countAll') {
-					table.children[0].style.display = 'flex';
-					table.children[1].style.display = 'flex';
-					table.children[2].style.display = 'flex';
-					table.children[6].style.display = 'flex';
-					table.children[7].style.display = 'flex';
-					table.children[8].style.display = 'flex';
-					table.children[9].style.display = 'none';
-					table.children[10].style.display = 'none';
-					table.children[11].style.display = 'none';
+
+		function hasClass(obj,cls) {  
+		    return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));  
+		}
+		  
+		function addClass(obj,cls) {  
+		    if (!hasClass(obj,cls)) obj.className += " " + cls;  
+		}
+		function setDisplayByClass(selector, display) {
+			var allElements = document.querySelectorAll(selector);
+			for (var i = allElements.length - 1; i >= 0; i--) {
+				allElements[i].style.display = display;
+			}
+		}
+		function init() {
+			var allInput = document.querySelectorAll('input[name]');
+			var allSelect = document.querySelectorAll('select[name]');
+			document.querySelector('select[name="paymonth"]').value = new Date().getMonth() + 1;
+			var i;
+			for (i = allInput.length - 1; i >= 0; i--) {
+				allInput[i].addEventListener('input', function() {
+					ouput();
+				});
+			}
+			for (i = allSelect.length - 1; i >= 0; i--) {
+				allSelect[i].addEventListener('change', function() {
+					ouput();
+				});
+			}
+			var btns = document.querySelectorAll('.button');
+			for (i = btns.length - 1; i >= 0; i--) {
+				btns[i].addEventListener('click', function() {
+					var _btns = document.querySelectorAll('.button');
+					for (var j = _btns.length - 1; j >= 0; j--) {
+						removeClass(btns[j], 'active');
+					}
+					addClass(this, 'active');
+					var table = document.querySelector('.my-table');
+					if(this.id === 'countAll') {
+						setDisplayByClass('.for-all-year', 'flex');
+						setDisplayByClass('.for-one-month', 'none');
+					} else {
+						setDisplayByClass('.for-all-year', 'none');
+						setDisplayByClass('.for-one-month', 'flex');
+					}
+				});
+			}
+		}
+		
+		function ouput() {
+			var oldVal = +getInput('old').value;
+			var newVal = +getInput('new').value;
+			var changemonthVal = +document.querySelector('select[name="changemonth"]').value;
+			var specialVal = +getInput('special').value;
+			var fiveoneVal = +getInput('fiveone').value;
+			function getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax) {
+				var thisMonthTax = 0;
+				if(thisMonthRate !== lastMonthRate && lastMonthRemain) {
+					if(lastMonthRemain) {
+						thisMonthTax = lastMonthRemain * lastMonthRate;
+					}
+					thisMonthTax += (shouldTax - lastMonthRemain) * thisMonthRate;
 				} else {
-					table.children[0].style.display = 'none';
-					table.children[1].style.display = 'none';
-					table.children[2].style.display = 'none';
-					table.children[6].style.display = 'none';
-					table.children[7].style.display = 'none';
-					table.children[8].style.display = 'none';
-					table.children[9].style.display = 'flex';
-					table.children[10].style.display = 'flex';
-					table.children[11].style.display = 'flex';
+					thisMonthTax = shouldTax * thisMonthRate;
 				}
-			});
-		}
-	}
-	
-	function ouput() {
-		var oldVal = +getInput('old').value;
-		var newVal = +getInput('new').value;
-		var changemonthVal = +document.querySelector('select[name="changemonth"]').value;
-		var specialVal = +getInput('special').value;
-		var fiveoneVal = +getInput('fiveone').value;
-		function getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax) {
-			var thisMonthTax = 0;
-			if(thisMonthRate !== lastMonthRate && lastMonthRemain) {
-				if(lastMonthRemain) {
-					thisMonthTax = lastMonthRemain * lastMonthRate;
-				}
-				thisMonthTax += (shouldTax - lastMonthRemain) * thisMonthRate;
-			} else {
-				thisMonthTax = shouldTax * thisMonthRate;
+				thisMonthTax = thisMonthTax > 0 ? thisMonthTax : 0;
+				return thisMonthTax;
 			}
-			thisMonthTax = thisMonthTax > 0 ? thisMonthTax : 0;
-			console.log(thisMonthTax);
-			return thisMonthTax;
-		}
-		function _count(range, income) {
-			var shouldTax = income - (specialVal + fiveoneVal + 5000);//本月需纳税的金额
-			var payTax = 0, //累计的支付税款
-				shouldAllTax = shouldTax;//累计的需纳税的金额
-			var thisMonthTax = 0, //这个月需缴纳的税款
-				lastMonthRemain = 0, //上个月的结余
-				thisMonthRate = 0.03, //这个月的税率
-				lastMonthRate = 0.03;//上个月的税率
-			var taxRate = [];
-			
-			for(i = range[0]; i <= range[1]; i++) {
-				if(shouldAllTax <= 36000) {
-					thisMonthRate = 0.03;
-					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					if(shouldAllTax + shouldTax > 36000) {
-						lastMonthRemain = 36000 - shouldAllTax;
-					} else {
-						lastMonthRemain = 0;
-					}
-				} else if(shouldAllTax > 36000 && shouldAllTax <= 144000) {
-					thisMonthRate = 0.10;
-					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					if(shouldTax + shouldAllTax > 144000) {
-						lastMonthRemain = 144000 - shouldAllTax;
-					} else {
-						lastMonthRemain = 0;
-					}
-				} else if(shouldAllTax > 144000 && shouldAllTax <= 300000) {
-					thisMonthRate = 0.20;
-					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					if(shouldTax + shouldAllTax > 300000) {
-						lastMonthRemain = 300000 - shouldAllTax;
-					} else {
-						lastMonthRemain = 0;
-					}
-				} else if(shouldAllTax > 300000 && shouldAllTax <= 420000) {
-					thisMonthRate = 0.25;
-					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					if(shouldTax + shouldAllTax > 420000) {
-						lastMonthRemain = 420000 - shouldAllTax;
-					} else {
-						lastMonthRemain = 0;
-					}
-				} else if(shouldAllTax > 420000 && shouldAllTax <= 660000) {
-					thisMonthRate = 0.30;
-					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					if(shouldTax + shouldAllTax > 660000) {
-						lastMonthRemain = 660000 - shouldAllTax;
-					} else {
-						lastMonthRemain = 0;
-					}
-				} else if(shouldAllTax > 660000 && shouldAllTax <= 960000) {
-					thisMonthRate = 0.35;
-					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-					if(shouldTax + shouldAllTax > 960000) {
-						lastMonthRemain = 960000 - shouldAllTax;
-					} else {
-						lastMonthRemain = 0;
-					}
-				} else if(shouldAllTax > 960000) {
-					thisMonthRate = 0.45;
-					thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
-				}
+			function _count(range, income, _month) {
+				var shouldTax = income - (specialVal + fiveoneVal + 5000);//本月需纳税的金额
+				shouldTax = shouldTax > 0 ? shouldTax : 0;
+				var payTax = 0, //累计的支付税款
+					shouldAllTax = shouldTax;//累计的需纳税的金额
+				var thisMonthTax = 0, //这个月需缴纳的税款
+					lastMonthRemain = 0, //上个月的结余
+					thisMonthRate = 0.03, //这个月的税率
+					lastMonthRate = 0.03;//上个月的税率
+				var taxRate = [];
 				
-				payTax += thisMonthTax;
-				shouldAllTax += shouldTax;
-				lastMonthRate = thisMonthRate;
-			}
-			console.log('需纳税工资总数：' + shouldAllTax);
-			console.log('纳税总金额：' + payTax);
-			return payTax;
-		}
-		var activeBtn = document.querySelector('.button.active');
-		var isMonthly = activeBtn.id === 'countMonth';
-		if(isMonthly) {
-			var newPayTax = _count([1,12], newVal);
-		} else {
-			var oldPayTax = _count([1,changemonthVal - 1], oldVal);
-			var newPayTax = _count([changemonthVal,12],newVal);
-			
-			var tax = _count([1,12], newVal) - (oldPayTax + newPayTax);
+				for(i = range[0]; i <= range[1]; i++) {
+					if (shouldAllTax <= 36000) {
+						thisMonthRate = 0.03;
+						thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+						if (shouldAllTax + shouldTax > 36000) {
+							lastMonthRemain = 36000 - shouldAllTax;
+						} else {
+							lastMonthRemain = 0;
+						}
+					} else if(shouldAllTax > 36000 && shouldAllTax <= 144000) {
+						thisMonthRate = 0.10;
+						thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+						if (shouldTax + shouldAllTax > 144000) {
+							lastMonthRemain = 144000 - shouldAllTax;
+						} else {
+							lastMonthRemain = 0;
+						}
+					} else if(shouldAllTax > 144000 && shouldAllTax <= 300000) {
+						thisMonthRate = 0.20;
+						thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+						if (shouldTax + shouldAllTax > 300000) {
+							lastMonthRemain = 300000 - shouldAllTax;
+						} else {
+							lastMonthRemain = 0;
+						}
+					} else if(shouldAllTax > 300000 && shouldAllTax <= 420000) {
+						thisMonthRate = 0.25;
+						thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+						if (shouldTax + shouldAllTax > 420000) {
+							lastMonthRemain = 420000 - shouldAllTax;
+						} else {
+							lastMonthRemain = 0;
+						}
+					} else if(shouldAllTax > 420000 && shouldAllTax <= 660000) {
+						thisMonthRate = 0.30;
+						thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+						if (shouldTax + shouldAllTax > 660000) {
+							lastMonthRemain = 660000 - shouldAllTax;
+						} else {
+							lastMonthRemain = 0;
+						}
+					} else if(shouldAllTax > 660000 && shouldAllTax <= 960000) {
+						thisMonthRate = 0.35;
+						thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+						if (shouldTax + shouldAllTax > 960000) {
+							lastMonthRemain = 960000 - shouldAllTax;
+						} else {
+							lastMonthRemain = 0;
+						}
+					} else if(shouldAllTax > 960000) {
+						thisMonthRate = 0.45;
+						thisMonthTax = getThisMonthTax(thisMonthRate, lastMonthRate, lastMonthRemain, shouldTax);
+					}
+					
+					payTax += thisMonthTax;
+					shouldAllTax += shouldTax;
+					lastMonthRate = thisMonthRate;
+					if(_month && i === _month) {
+						return thisMonthTax;
+					}
+				}
 
-			document.querySelector('.result').innerHTML = tax.toFixed(2);
+				console.log('需纳税工资总数：' + shouldAllTax);
+				console.log('纳税总金额：' + payTax);
+				return payTax;
+			}
+			var activeBtn = document.querySelector('.button.active');
+			var isMonthly = activeBtn.id === 'countMonth';
+			if(isMonthly) {
+				var _month = +document.querySelector('select[name="paymonth"]').value;
+				var _payTax = _count([1,12], newVal, _month);
+				document.querySelector('.result').innerHTML = _payTax.toFixed(2);
+			} else {
+				var oldPayTax = _count([1, changemonthVal - 1], oldVal);
+				var newPayTax = _count([changemonthVal, 12], newVal);
+				
+				var tax = _count([1,12], newVal) - (oldPayTax + newPayTax);
+
+				document.querySelector('.result').innerHTML = tax.toFixed(2);
+			}
 		}
-	}
+	})();
 </script>
 </body>
 </html>
