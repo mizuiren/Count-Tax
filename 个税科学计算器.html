@@ -7,10 +7,13 @@
 		.my-table {
 			display: grid;
 			grid-template-columns: 20% 25% 1fr;
+			font-size: 14px;
 		}
 		.my-table > div{
 			display: flex;
 			padding: 10px 0;
+			align-items: center;
+			padding-right: 10px;
 		}
 		.my-table input,.my-table select {
 			width: 100%;
@@ -42,6 +45,7 @@
     		color: #444;
     		border: 2px solid #888;
     		width: 100px;
+    		height: 30px;
 		}
 		.button.active {
     		box-shadow: 0 0 3px 1px #250523 inset;
@@ -113,7 +117,7 @@
 		<div><input type="number" name="fiveone" value="547"></div>
 		<div>¥（人民币）， 注：默认按最低基数缴纳</div>
 		<div style="font-weight: bold;" class="result-tip">需要补缴：</div>
-		<div class="result"></div>
+		<div class="result">?</div>
 		<div></div>
 		<div style="grid-column-start: 1;grid-column-end:4;" class="for-all-year">注：计算最终结果：正数表示需要补扣，负数表示要退税</div>
 	</div>
@@ -227,6 +231,7 @@
 					addClass(this, 'active');
 					var table = document.querySelector('.my-table');
 					var resultTip = document.querySelector('.result-tip');
+					document.querySelector('.result').innerHTML = '?';
 					if(this.id === 'countAll') {
 						setDisplayByClass('.for-all-year', 'flex');
 						setDisplayByClass('.for-one-month', 'none');
