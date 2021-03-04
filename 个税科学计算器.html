@@ -269,7 +269,9 @@
 					thisMonthRate = 0.03, //这个月的税率
 					lastMonthRate = 0.03;//上个月的税率
 				var taxRate = [];
-				
+				if(range[2]) {
+					shouldAllTax += range[2];
+				}
 				for(i = range[0]; i <= range[1]; i++) {
 					if (shouldAllTax <= 36000) {
 						thisMonthRate = 0.03;
@@ -328,26 +330,24 @@
 					shouldAllTax += shouldTax;
 					lastMonthRate = thisMonthRate;
 					if(_month && i === _month) {
-						return thisMonthTax;
+						return {thisMonthTax, payTax, shouldAllTax};
 					}
 				}
 
 				console.log('需纳税工资总数：' + shouldAllTax);
 				console.log('纳税总金额：' + payTax);
-				return payTax;
+				return { payTax, shouldAllTax };
 			}
 			var activeBtn = document.querySelector('.button.active');
 			var isMonthly = activeBtn.id === 'countMonth';
 			if(isMonthly) {
 				var _month = +document.querySelector('select[name="paymonth"]').value;
 				var _payTax = _count([1,12], newVal, _month);
-				document.querySelector('.result').innerHTML = _payTax.toFixed(2);
+				document.querySelector('.result').innerHTML = _payTax.thisMonthTax.toFixed(2);
 			} else {
 				var oldPayTax = _count([1, changemonthVal - 1], oldVal);
 				var newPayTax = _count([changemonthVal, 12], newVal);
-				
-				var tax = _count([1,12], newVal) - (oldPayTax + newPayTax);
-
+				var tax = _count([changemonthVal,12, oldPayTax.shouldAllTax], newVal).payTax - newPayTax.payTax;
 				document.querySelector('.result').innerHTML = tax.toFixed(2);
 			}
 		}
